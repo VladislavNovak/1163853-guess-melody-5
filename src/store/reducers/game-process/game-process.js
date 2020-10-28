@@ -1,13 +1,32 @@
-import {combineReducers} from "redux";
-import {gameProcess} from "./game-process/game-process";
-import {gameData} from "./game-data/game-data";
 
-export const NameSpace = {
-  DATA: `DATA`,
-  GAME: `GAME`,
+import {extend} from "../../../utils";
+import {ActionType} from "../../action";
+
+const initialState = {
+  mistakes: 0,
+  step: 0,
 };
 
-export default combineReducers({
-  [NameSpace.DATA]: gameData,
-  [NameSpace.GAME]: gameProcess,
-});
+const gameProcess = (state = initialState, action) => {
+  switch (action.type) {
+    case ActionType.INCREMENT_STEP:
+      let nextStep = state.step + action.payload;
+
+      return extend(state, {
+        step: nextStep,
+      });
+
+    case ActionType.INCREMENT_MISTAKES:
+      return extend(state, {
+        mistakes: state.mistakes + action.payload,
+      });
+
+    case ActionType.RESET_GAME:
+      return extend({}, initialState);
+  }
+
+  return state;
+};
+
+
+export {gameProcess};

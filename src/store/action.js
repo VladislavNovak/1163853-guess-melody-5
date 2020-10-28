@@ -1,4 +1,3 @@
-
 import {isArtistAnswerCorrect, isGenreAnswerCorrect} from "../game";
 import {GameType} from "../const";
 
